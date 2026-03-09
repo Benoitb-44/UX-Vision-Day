@@ -146,6 +146,7 @@
         <div class="user-avatar">TM</div>
         <span>Thomas M.</span>
       </div>
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Ouvrir le panneau de contrôle" aria-expanded="false" aria-controls="sidebar">&#9776;</button>
     </div>
   </header>
 
@@ -154,8 +155,11 @@
   ═══════════════════════════════════════════════════════════ -->
   <div class="app-layout">
 
+    <!-- Backdrop (mobile overlay when sidebar is open) -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar" role="complementary" aria-label="Panneau de contrôle">
 
       <!-- Niveaux de permission -->
       <div class="sidebar-section">

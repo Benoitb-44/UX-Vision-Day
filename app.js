@@ -14,6 +14,7 @@ const state = {
   typing: false,
   cartItems: [],
   actionLog: [],
+  sidebarOpen: false,
 };
 
 // ─── Conversation script ──────────────────────────────────────────────────────
@@ -154,6 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
   dom.modalSteps        = document.querySelectorAll('.modal-step');
   dom.modalDots         = document.querySelectorAll('.modal-dot');
   dom.memoryToggle      = document.getElementById('memory-toggle');
+  dom.sidebarEl         = document.getElementById('sidebar');
+  dom.sidebarBackdrop   = document.getElementById('sidebar-backdrop');
+  dom.sidebarToggle     = document.getElementById('sidebar-toggle');
 
   init();
 });
@@ -186,7 +190,66 @@ function init() {
     dom.chatInput.style.height = 'auto';
     dom.chatInput.style.height = dom.chatInput.scrollHeight + 'px';
   });
+
+  // Sidebar drawer (mobile)
+  if (dom.sidebarToggle) {
+    dom.sidebarToggle.addEventListener('click', toggleSidebar);
+  }
+  if (dom.sidebarBackdrop) {
+    dom.sidebarBackdrop.addEventListener('click', closeSidebar);
+  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && state.sidebarOpen) closeSidebar();
+  });
 }
+
+// ─── Sidebar drawer (mobile) ──────────────────────────────────────────────────
+function openSidebar() {
+  state.sidebarOpen = true;
+  dom.sidebarEl.classList.add('open');
+  dom.sidebarBackdrop.classList.add('active');
+  dom.sidebarToggle.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSidebar() {
+  state.sidebarOpen = false;
+  dom.sidebarEl.classList.remove('open');
+  dom.sidebarBackdrop.classList.remove('active');
+  dom.sidebarToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+function toggleSidebar() {
+  state.sidebarOpen ? closeSidebar() : openSidebar();
+}
+
+// Swipe-to-close sidebar
+(function initSwipeToClose() {
+  let startX = 0, startY = 0;
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!dom.sidebarEl) return;
+    dom.sidebarEl.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+    dom.sidebarEl.addEventListener('touchmove', (e) => {
+      if (!state.sidebarOpen) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = Math.abs(e.touches[0].clientY - startY);
+      if (dy > Math.abs(dx) || dx <= 0) return;
+      const clamped = Math.min(dx, dom.sidebarEl.offsetWidth);
+      dom.sidebarEl.style.transform = `translateX(${clamped}px)`;
+      dom.sidebarBackdrop.style.opacity = String(1 - clamped / dom.sidebarEl.offsetWidth);
+    }, { passive: true });
+    dom.sidebarEl.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      dom.sidebarEl.style.transform = '';
+      dom.sidebarBackdrop.style.opacity = '';
+      if (dx > dom.sidebarEl.offsetWidth * 0.4) closeSidebar();
+    }, { passive: true });
+  });
+})();
 
 // ─── Onboarding ───────────────────────────────────────────────────────────────
 function goToStep(n) {
@@ -476,7 +539,7 @@ function renderPriceChart(p) {
           <span class="price-stat-value green">${p.price}€</span>
         </div>
       </div>
-      <div style="font-size:0.68rem;color:#9E9E9E;margin-top:4px;">Prix suivi depuis 90 jours sur Cdiscount</div>
+      <div style="font-size:0.75rem;color:#9E9E9E;margin-top:4px;">Prix suivi depuis 90 jours sur Cdiscount</div>
     </div>`;
 }
 

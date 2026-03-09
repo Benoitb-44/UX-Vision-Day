@@ -429,8 +429,8 @@ function renderPriceChart(p) {
         <!-- Area fill -->
         <defs>
           <linearGradient id="grad-${p.id}" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#E95D0F" stop-opacity="0.15"/>
-            <stop offset="100%" stop-color="#E95D0F" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#3732FF" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#3732FF" stop-opacity="0"/>
           </linearGradient>
         </defs>
         <polygon
@@ -441,7 +441,7 @@ function renderPriceChart(p) {
         <polyline
           points="${points}"
           fill="none"
-          stroke="#E95D0F"
+          stroke="#3732FF"
           stroke-width="2"
           stroke-linejoin="round"
           stroke-linecap="round"

@@ -4,10 +4,10 @@
    ============================================ */
 
 :root {
-  --primary:        #E95D0F;
-  --primary-dark:   #C44D0A;
-  --primary-light:  #FFF0E8;
-  --primary-mid:    #FDE0CE;
+  --primary:        #3732FF;
+  --primary-dark:   #2825CC;
+  --primary-light:  #EEEEFF;
+  --primary-mid:    #D5D4FD;
   --text:           #1A1A1A;
   --text-secondary: #6B6B6B;
   --bg:             #F5F5F5;

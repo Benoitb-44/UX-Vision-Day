@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cdiscount — Mon Conseiller IA (Maquette)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ONBOARDING MODAL
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="onboarding-overlay">
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <h2>🛍️ Bienvenue sur Mon Conseiller</h2>
+        <p>Votre assistant d'achat personnel, ancré dans le catalogue Cdiscount</p>
+      </div>
+
+      <!-- Étape 1 : Ce que Clio peut faire -->
+      <div class="modal-step active" id="step-1">
+        <h3>Ce que Clio peut faire pour vous</h3>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon">🔍</div>
+            <div class="feature-text">
+              <strong>Trouver le bon produit</strong>
+              <span>Clio qualifie votre besoin et cherche dans tout le catalogue Cdiscount en temps réel.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📈</div>
+            <div class="feature-text">
+              <strong>Analyser l'historique des prix</strong>
+              <span>Elle vous dit si c'est vraiment un bon prix aujourd'hui, preuves à l'appui.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">⚖️</div>
+            <div class="feature-text">
+              <strong>Comparer en profondeur</strong>
+              <span>Comparaison sur les critères qui comptent pour votre usage, pas juste les specs.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔔</div>
+            <div class="feature-text">
+              <strong>Créer des alertes prix</strong>
+              <span>Clio vous prévient dès que le prix cible est atteint, par email ou SMS.</span>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:#9E9E9E;margin-top:4px;">
+          ℹ️ Clio est un agent IA — elle le sait et vous le rappellera. Ses recommandations sont toujours basées sur des données réelles.
+        </p>
+      </div>
+
+      <!-- Étape 2 : Niveaux de permission -->
+      <div class="modal-step" id="step-2">
+        <h3>Choisissez votre niveau d'autonomie</h3>
+        <p>Vous contrôlez ce que Clio peut faire. Vous pouvez changer ce niveau à tout moment.</p>
+        <div class="perm-cards">
+          <div class="perm-card">
+            <span class="perm-card-icon">🟡</span>
+            <div class="perm-card-text">
+              <strong>Lecture — Informer</strong>
+              <span>Clio consulte, compare et analyse. Vous faites tout vous-même.</span>
+            </div>
+          </div>
+          <div class="perm-card">
+            <span class="perm-card-icon">🟠</span>
+            <div class="perm-card-text">
+              <strong>Suggestion — Préparer</strong>
+              <span>Clio peut ajouter au panier, créer des alertes. Chaque action requiert votre validation.</span>
+            </div>
+          </div>
+          <div class="perm-card">
+            <span class="perm-card-icon">🔴</span>
+            <div class="perm-card-text">
+              <strong>Autonome — Agir</strong>
+              <span>Clio peut commander dans le cadre que vous définissez. Une confirmation avant chaque achat.</span>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:#9E9E9E;">
+          Nous démarrons en mode <strong>Lecture</strong> par défaut. Vous pouvez évoluer à tout moment.
+        </p>
+      </div>
+
+      <!-- Étape 3 : Mémoire long terme -->
+      <div class="modal-step" id="step-3">
+        <h3>Activez la mémoire longue (optionnel)</h3>
+        <p>Clio peut mémoriser vos préférences entre les sessions pour des recommandations encore plus pertinentes.</p>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <strong>Mémoriser mes préférences</strong>
+            <span>Vos habitudes d'achat, budgets préférés, marques appréciées</span>
+          </div>
+          <div class="toggle" id="memory-toggle"></div>
+        </div>
+        <div class="rgpd-note">
+          🔒 <strong>RGPD :</strong> Ces données sont stockées dans votre compte Cdiscount. Vous pouvez les supprimer à tout moment dans Paramètres → Mon Conseiller → Effacer ma mémoire.
+        </div>
+        <p style="font-size:0.78rem;color:#9E9E9E;">
+          Pas de partage de vos conversations avec des tiers. Vous avez un droit d'accès et d'effacement complet.
+        </p>
+      </div>
+
+      <!-- Dots de progression -->
+      <div class="modal-dots">
+        <div class="modal-dot active"></div>
+        <div class="modal-dot"></div>
+        <div class="modal-dot"></div>
+      </div>
+
+      <!-- Pied du modal -->
+      <div class="modal-footer">
+        <button class="btn-back hidden" id="btn-back-2">← Retour</button>
+        <button class="btn-back hidden" id="btn-back-3">← Retour</button>
+        <div></div><!-- spacer -->
+        <button class="btn-next" id="btn-next-1">Suivant →</button>
+        <button class="btn-next hidden" id="btn-next-2">Suivant →</button>
+        <button class="btn-next hidden" id="btn-start">Commencer 🚀</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SITE HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <a href="#" class="logo">C<span>discount</span></a>
+    <nav class="main-nav">
+      <a href="#">Accueil</a>
+      <a href="#" class="active">Mon Conseiller</a>
+      <a href="#">Promos</a>
+      <a href="#">Mes achats</a>
+      <a href="#">Aide</a>
+    </nav>
+    <div class="header-right">
+      <span class="badge-cav">CàV Abonné ✓</span>
+      <div class="user-chip">
+        <div class="user-avatar">TM</div>
+        <span>Thomas M.</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN APP LAYOUT
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Niveaux de permission -->
+      <div class="sidebar-section">
+        <h3>Niveau d'action</h3>
+        <div class="perm-levels">
+          <button class="perm-btn active" data-level="lecture">
+            <span class="perm-icon">🟡</span>
+            <div class="perm-info">
+              <span class="perm-name">Lecture</span>
+              <span class="perm-desc">Consultation uniquement</span>
+            </div>
+          </button>
+          <button class="perm-btn" data-level="suggestion">
+            <span class="perm-icon">🟠</span>
+            <div class="perm-info">
+              <span class="perm-name">Suggestion</span>
+              <span class="perm-desc">Panier, alertes, listes</span>
+            </div>
+          </button>
+          <button class="perm-btn" data-level="autonome">
+            <span class="perm-icon">🔴</span>
+            <div class="perm-info">
+              <span class="perm-name">Autonome</span>
+              <span class="perm-desc">Commande déléguée</span>
+            </div>
+          </button>
+        </div>
+        <div class="perm-active-info" id="perm-active-info" style="margin-top:10px;">
+          <strong>Mode Lecture actif</strong><br>
+          Clio peut rechercher, comparer et analyser les prix. Les actions (panier, alertes) nécessitent un niveau supérieur.
+        </div>
+      </div>
+
+      <!-- Abonnement -->
+      <div class="sidebar-section">
+        <h3>Mon abonnement</h3>
+        <div style="background:linear-gradient(135deg,#FFD700,#FFA000);border-radius:10px;padding:14px;color:#3E2000;">
+          <div style="font-weight:800;font-size:0.95rem;margin-bottom:4px;">⭐ Cdiscount à Volonté</div>
+          <div style="font-size:0.78rem;opacity:0.85;">Livraison J+1 offerte · Prix abonné · Offres exclusives</div>
+          <div style="margin-top:10px;font-size:0.75rem;font-weight:700;">Économies ce mois : <span>23,40€</span></div>
+        </div>
+      </div>
+
+      <!-- Journal d'actions -->
+      <div class="sidebar-section">
+        <h3>Journal de session</h3>
+        <div class="action-log" id="action-log">
+          <div class="action-log-empty">Aucune action pour l'instant</div>
+        </div>
+      </div>
+
+      <!-- Infos session -->
+      <div class="sidebar-section" style="margin-top:auto;">
+        <div style="font-size:0.72rem;color:#BDBDBD;line-height:1.6;">
+          💾 <strong>Mémoire de session</strong> active<br>
+          🔒 Conversation chiffrée · Non partagée<br>
+          📅 Session démarrée à <span id="session-time"></span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- CHAT AREA -->
+    <section class="chat-area">
+
+      <!-- Top bar -->
+      <div class="chat-topbar">
+        <div class="agent-avatar-lg">CA</div>
+        <div class="agent-info">
+          <div class="agent-name">Clio — Conseillère d'achat IA</div>
+          <div class="agent-status">
+            <div class="status-dot"></div>
+            En ligne · Connectée au catalogue Cdiscount
+          </div>
+        </div>
+        <div class="chat-actions">
+          <button class="btn-icon" title="Sauvegarder la conversation">💾</button>
+          <button class="btn-icon" title="Nouvelle conversation" onclick="location.reload()">🔄</button>
+          <button class="btn-icon" title="Paramètres">⚙️</button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-messages" id="chat-messages">
+        <!-- Les messages sont injectés par app.js -->
+      </div>
+
+      <!-- Input bar -->
+      <div class="chat-input-bar">
+        <textarea
+          class="chat-input"
+          id="chat-input"
+          placeholder="Posez votre question à Clio… (ex : Je cherche un PC gamer)"
+          rows="1"
+        ></textarea>
+        <button class="btn-send" id="send-btn" title="Envoyer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+  <script>
+    // Initialiser l'heure de session
+    document.getElementById('session-time').textContent =
+      new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+    // Gérer la visibilité des boutons onboarding selon l'étape
+    const origGoToStep = window.goToStep;
+    document.getElementById('btn-next-1').addEventListener('click', () => {
+      document.getElementById('btn-next-1').classList.add('hidden');
+      document.getElementById('btn-next-2').classList.remove('hidden');
+      document.getElementById('btn-back-2').classList.remove('hidden');
+      document.getElementById('btn-back-3').classList.add('hidden');
+      document.getElementById('btn-start').classList.add('hidden');
+    });
+    document.getElementById('btn-next-2').addEventListener('click', () => {
+      document.getElementById('btn-next-2').classList.add('hidden');
+      document.getElementById('btn-back-2').classList.add('hidden');
+      document.getElementById('btn-back-3').classList.remove('hidden');
+      document.getElementById('btn-start').classList.remove('hidden');
+    });
+    document.getElementById('btn-back-2').addEventListener('click', () => {
+      document.getElementById('btn-next-1').classList.remove('hidden');
+      document.getElementById('btn-next-2').classList.add('hidden');
+      document.getElementById('btn-back-2').classList.add('hidden');
+    });
+    document.getElementById('btn-back-3').addEventListener('click', () => {
+      document.getElementById('btn-next-2').classList.remove('hidden');
+      document.getElementById('btn-back-2').classList.remove('hidden');
+      document.getElementById('btn-back-3').classList.add('hidden');
+      document.getElementById('btn-start').classList.add('hidden');
+    });
+
+    // upgradeTo() est défini dans app.js et accessible globalement
+  </script>
+</body>
+</html>
